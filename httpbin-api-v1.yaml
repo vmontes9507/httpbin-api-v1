@@ -1,0 +1,630 @@
+openapi: 3.0.1
+info:
+  title: httpbin-api-v1
+  description: API Httpbin para realizar testeos a servicios backend
+  version: 1.0.0
+servers:
+- url: https://httpbin.org
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: Métodos HTTP
+  description: Operaciones para testear los diferentes métodos http
+- name: Auth
+  description: Operación para autenticación básica
+- name: Status Codes
+  description: Operaciones para testear los diferentes códigos de estado http
+- name: Request inspection
+  description: Operaciones para visualizar información del request
+- name: Response inspection
+  description: Operaciones para visualizar información del request
+- name: Response Formats
+  description: Operaciones para visualizar información del request
+paths:
+  /get:
+    get:
+      tags:
+      - Métodos HTTP
+      summary: |
+        Operación que permite obtener los parámetros que se envíen en la petición.
+      description: Devuelve los parámetros que se envían en la petición tipo GET
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/parameters'
+      security:
+      - bearerAuth: []
+  /post:
+    post:
+      tags:
+      - Métodos HTTP
+      summary: |
+        Operación que permite obtener los parámetros que se envíen en la petición con verbo POST.
+      description: Devuelve los parámetros que se envían en la petición tipo POST
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodResponse'
+      security:
+      - bearerAuth: []
+  /delete:
+    delete:
+      tags:
+      - Métodos HTTP
+      summary: |
+        Operación que permite obtener los parámetros que se envíen en la petición con verbo DELETE.
+      description: Devuelve los parámetros que se envían en la petición tipo DELETE
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodResponse'
+      security:
+      - bearerAuth: []
+  /put:
+    put:
+      tags:
+      - Métodos HTTP
+      summary: |
+        Operación que permite obtener los parámetros que se envíen en la petición con verbo PUT.
+      description: Devuelve los parámetros que se envían en la petición tipo PUT
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodResponse'
+      security:
+      - bearerAuth: []
+  /patch:
+    patch:
+      tags:
+      - Métodos HTTP
+      summary: |
+        Operación que permite obtener los parámetros que se envíen en la petición con verbo PUT.
+      description: Devuelve los parámetros que se envían en la petición tipo PATCH
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodResponse'
+      security:
+      - bearerAuth: []
+  /basic-auth/{user}/{passwd}:
+    get:
+      tags:
+      - Auth
+      summary: |
+        Operación que permite realizar una autenticación por medio de usuario y contraseña.
+      description: Permite realizar una autenticación por medio de usuario y contraseña
+      parameters:
+      - name: user
+        in: path
+        description: "Nombre de usuario. Por default, dejar 'user' en el campo y en\
+          \ la autorización de la Spec"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: passwd
+        in: path
+        description: "Nombre de usuario. Por default, dejar 'passwd' en el campo y\
+          \ en la autorización de la Spec"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        "401":
+          description: No Authorized
+      security:
+      - basicAuth: []
+  /status/{codes}:
+    get:
+      tags:
+      - Status Codes
+      summary: |
+        Retorna el estatus que se envíe en el parámetro codes.
+      description: Devuelve el código de estado http que se envía en el parámetro
+        codes para el verbo GET
+      parameters:
+      - name: codes
+        in: path
+        description: Código de estado http
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "100":
+          description: Informational responses
+        "200":
+          description: Success
+        "300":
+          description: Redirection
+        "400":
+          description: Client Errors
+        "500":
+          description: Server Errors
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - Status Codes
+      summary: |
+        Retorna el estatus que se envíe en el parámetro codes.
+      description: Devuelve el código de estado http que se envía en el parámetro
+        codes para el verbo PUT
+      parameters:
+      - name: codes
+        in: path
+        description: Código de estado http
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "100":
+          description: Informational responses
+        "200":
+          description: Success
+        "300":
+          description: Redirection
+        "400":
+          description: Client Errors
+        "500":
+          description: Server Errors
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Status Codes
+      summary: |
+        Retorna el estatus que se envíe en el parámetro codes.
+      description: Devuelve el código de estado http que se envía en el parámetro
+        codes para el verbo POST
+      parameters:
+      - name: codes
+        in: path
+        description: Código de estado http
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "100":
+          description: Informational responses
+        "200":
+          description: Success
+        "300":
+          description: Redirection
+        "400":
+          description: Client Errors
+        "500":
+          description: Server Errors
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Status Codes
+      summary: |
+        Retorna el estatus que se envíe en el parámetro codes.
+      description: Devuelve el código de estado http que se envía en el parámetro
+        codes para el verbo DELETE
+      parameters:
+      - name: codes
+        in: path
+        description: Código de estado http
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "100":
+          description: Informational responses
+        "200":
+          description: Success
+        "300":
+          description: Redirection
+        "400":
+          description: Client Errors
+        "500":
+          description: Server Errors
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - Status Codes
+      summary: |
+        Retorna el estatus que se envíe en el parámetro codes.
+      description: Devuelve el código de estado http que se envía en el parámetro
+        codes para el verbo PATCH
+      parameters:
+      - name: codes
+        in: path
+        description: Código de estado http
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "100":
+          description: Informational responses
+        "200":
+          description: Success
+        "300":
+          description: Redirection
+        "400":
+          description: Client Errors
+        "500":
+          description: Server Errors
+      security:
+      - bearerAuth: []
+  /headers:
+    get:
+      tags:
+      - Request inspection
+      summary: |
+        Operación que responde un json con los headers enviados en la petición
+      description: Devuelve un json con los headers enviados en la petición
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Headers'
+      security:
+      - bearerAuth: []
+  /ip:
+    get:
+      tags:
+      - Request inspection
+      summary: |
+        Operación que responde un json con la ip de origen de la petición
+      description: Devuelve un json con la ip de origen de la petición
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ip'
+      security:
+      - bearerAuth: []
+  /user-agent:
+    get:
+      tags:
+      - Request inspection
+      summary: |
+        Operación que responde un json con el user agent
+      description: Devuelve un json con el user agent
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User-Agent'
+      security:
+      - bearerAuth: []
+  /cache:
+    get:
+      tags:
+      - Response inspection
+      summary: |
+        Responde un 304 si el header If-Modified-Since o If-None-Match son enviados. Si no, devuelve lo mismo que el path Get.
+      description: Devuelve un 304 si el header If-Modified-Since o If-None-Match
+        son enviados
+      parameters:
+      - name: If-Modified-Since
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: If-None-Match
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/parameters'
+        "300":
+          description: Headers presentes
+      security:
+      - bearerAuth: []
+  /response-headers:
+    get:
+      tags:
+      - Response inspection
+      summary: |
+        Responde un set de headers de respuesta de un query string.
+      description: Devuelve un set de headers de respuesta de un query string
+      parameters:
+      - name: freeform
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeadersResponse'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - Response inspection
+      summary: |
+        Responde un set de headers de respuesta de un query string.
+      description: Devuelve un set de headers de respuesta de un query string
+      parameters:
+      - name: freeform
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeadersResponse'
+      security:
+      - bearerAuth: []
+  /json:
+    get:
+      tags:
+      - Response Formats
+      summary: |
+        Operación que responde un json de ejemplo.
+      description: Devuelve un json de ejemplo
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/slideshow'
+      security:
+      - bearerAuth: []
+  /brotli:
+    get:
+      tags:
+      - Response Formats
+      summary: |
+        Operación que responde brotli-encoded data.
+      description: Devuelve un body con brotli-encoded data
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrotliEncodedData'
+      security:
+      - bearerAuth: []
+  /deflate:
+    get:
+      tags:
+      - Response Formats
+      summary: |
+        Operación que responde deflate-encoded data.
+      description: Devuelve un body con deflate-encoded data
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeflateEncodedData'
+      security:
+      - bearerAuth: []
+  /deny:
+    get:
+      tags:
+      - Response Formats
+      summary: |
+        Operación que responde página denegada por reglas robots.txt
+      description: Devuelve página denegada por reglas robots.txt
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+      security:
+      - bearerAuth: []
+  /encoding/utf8:
+    get:
+      tags:
+      - Response Formats
+      summary: |
+        Operación que responde con un body codificado utf-8
+      description: Devuelve un body codificado en utf-8
+      responses:
+        "200":
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+      security:
+      - bearerAuth: []
+  /xml:
+    get:
+      tags:
+      - Response Formats
+      summary: |
+        Operación que responde un xml de ejemplo.
+      description: Devuelve un xml de ejemplo
+      responses:
+        "200":
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/slideshow'
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    slideshow:
+      type: object
+      properties:
+        slideshow:
+          $ref: '#/components/schemas/slideshow_slideshow'
+    parameters:
+      type: object
+      properties:
+        args:
+          type: object
+        headers:
+          type: object
+        origin:
+          type: string
+        url:
+          type: string
+    MethodResponse:
+      type: object
+      properties:
+        args:
+          type: object
+        data:
+          type: string
+        files:
+          type: object
+        form:
+          type: object
+        headers:
+          type: object
+        json:
+          type: object
+        origin:
+          type: string
+        url:
+          type: string
+    AuthResponse:
+      type: object
+      properties:
+        authenticated:
+          type: boolean
+        user:
+          type: string
+    Headers:
+      type: object
+      properties:
+        headers:
+          type: object
+    HeadersResponse:
+      type: object
+      properties:
+        Content-Length:
+          type: string
+        Content-Type:
+          type: string
+        freeform:
+          type: string
+    Ip:
+      type: object
+      properties:
+        origin:
+          type: string
+    User-Agent:
+      type: object
+      properties:
+        user-agent:
+          type: string
+    BrotliEncodedData:
+      type: object
+      properties:
+        brotli:
+          type: boolean
+        headers:
+          type: object
+        method:
+          type: string
+        origin:
+          type: string
+    DeflateEncodedData:
+      type: object
+      properties:
+        deflated:
+          type: boolean
+        headers:
+          type: object
+        method:
+          type: string
+        origin:
+          type: string
+    slideshow_slideshow_slides:
+      type: object
+      properties:
+        title:
+          type: string
+        type:
+          type: string
+    slideshow_slideshow:
+      type: object
+      properties:
+        author:
+          type: string
+        date:
+          type: string
+        slides:
+          type: array
+          items:
+            $ref: '#/components/schemas/slideshow_slideshow_slides'
+        title:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      scheme: basic
